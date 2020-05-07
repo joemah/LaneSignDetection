@@ -1,5 +1,8 @@
 //CREATED BY JOEMAH
-
+/* 
+    *May 2020
+    *Computer Vision Asignment
+*/
 
 // WHAT THE CODE DOES
 /*
@@ -24,14 +27,16 @@
 #include "DetectLane.h"
 #include "Circle.cpp"
 
+void usage( char** argv); // a function  that gives instuction  on how to use the program
 
-// this is the main function which cond=tains all  the functions used to  detect roadlines and signs
+// this is the main function which contains all  the functions used to  detect roadlines and signs
 
 int main( int argc, char** argv )
 {   
+    usage(argv);
     if (argc != 2 )
     { 
-        std::cout << "Not enough arguments, please  enter ./main and the image name " << std::endl;
+        std::cout << "Not enough arguments, please  enter ./main and the image name\n\n " << std::endl;
         return -1;
     }
 
@@ -39,40 +44,25 @@ int main( int argc, char** argv )
     cv::Mat m_blur;
     cv::Mat m_edge;
   
-    m_input =  cv::imread(argv[1], cv::IMREAD_COLOR); // read the input image file 
+    m_input =  cv::imread(argv[1], cv::IMREAD_COLOR); // read the input image file eg road4.jpg
 
     DetectLane detectlane; // create the class object 
 
     m_blur = detectlane.d_Noise(m_input);
     m_edge = detectlane.d_Edge(m_blur);
 
-    // int nOfpoints[] = {8};
-    // int shift_x = 56;
-    // int shift_y = 55;
-
-    // cv::Point points[1][8];
-
-    // points[0][0] = cv::Point(m_input.size().width/2 - shift_x,m_input.size().height/2 + shift_y);
-    // points[0][1] = cv::Point(100, m_input.size().height);
-    // points[0][2] = cv::Point(100, m_input.size().height);
-    // points[0][3] = cv::Point(m_input.size().width - 50, m_input.size().height);
-    // points[0][4] = cv::Point(m_input.size().width - 50, m_input.size().height);
-    // points[0][5] = cv::Point(m_input.size().width/2 + shift_x, m_input.size().height/2 + shift_y);
-    // points[0][6] = cv::Point(m_input.size().width/2 + shift_x, m_input.size().height/2 + shift_y);
-    // points[0][7] = cv::Point(m_input.size().width/2 - shift_x, m_input.size().height/2 + shift_y);
-
-    // const cv::Point* vertices[1] = { points[0] };
- 
-    // Select ROI
-    //cv::Mat roi = cv::Mat::zeros(m_input.size(),m_input.type());
-    //cv::fillPoly(roi, vertices, nOfpoints, 1, cv::Scalar(255), 8);
-    // std::cout << m_edge.size() << std::endl;
-    // std::cout << roi.size() << std::endl;
-    //cv::bitwise_and(m_edge, roi,roi);
-    //cv::imshow("ROI",roi);
-
-    //detectlane.houghCircles(m_input, m_edge);
-    detectlane.houghLines(m_edge);
+    detectlane.houghCircles(m_input, m_edge);
+    detectlane.houghLines(m_input, m_edge);
     cv::waitKey(0); 
     return 0;
+}
+
+void usage(char** argv) // gives the direction of use of the program  to the user
+{
+    std::cout << "This program performs lane and sign detection, In order to use it, follow the instruction as below\n\n"
+        << "load the image as follow \n\n"
+        << argv[0] << "navigate to the path conataining the main function\n\n" 
+        << "For example  " << argv[0]<< " image.jpg\n\n" //is the name of the program.
+        << std::endl;
+
 }

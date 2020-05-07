@@ -1,5 +1,8 @@
 //CREATED BY JOEMAH
-
+/* 
+    *May 2020
+    *Computer Vision Asignment
+*/
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/core.hpp>
@@ -45,6 +48,7 @@ void DetectLane::houghCircles(cv::Mat m_input, cv::Mat m_blur)
     cv::namedWindow("Detected", cv::WINDOW_AUTOSIZE);
         //cv::imshow( "Image", cimg);
     cv::imshow("Detected", cimg);
+    cv::imwrite("Circle.jpg", cimg);
 
 }
 
